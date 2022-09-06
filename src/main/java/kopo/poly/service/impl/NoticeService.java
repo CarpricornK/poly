@@ -120,6 +120,7 @@ public class NoticeService implements INoticeService {
                 .build();
 
         noticeRepository.save(pEntity);
+
         log.info(this.getClass().getName() + ".InsertNoticeInfo End!");
     }
 

@@ -77,7 +77,7 @@
                 </div>
                 <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getReadCnt()) %>
                 </div>
-                <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getUserName()) %>
+                <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getRegId()) %>
                 </div>
                 <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getRegDt()) %>
                 </div>

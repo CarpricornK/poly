@@ -102,6 +102,7 @@ public class NoticeController {
 
     @PostMapping(value = "NoticeUpdate")
     public String NoticeUpdate(HttpSession session, HttpServletRequest request, ModelMap model) {
+
         log.info(this.getClass().getName() + ".noticeUpdate Start!");
 
         String msg = "";
@@ -120,6 +121,7 @@ public class NoticeController {
             log.info("contents :"+contents);
 
             NoticeDTO pDTO = new NoticeDTO();
+
             pDTO.setUserId(user_id);
             pDTO.setNoticeSeq(Long.parseLong(nSeq));
             pDTO.setTitle(title);
@@ -138,7 +140,7 @@ public class NoticeController {
         } finally {
             log.info(this.getClass().getName() + ".noticeUpdate End!");
 
-            model.addAttribute("msg",msg);
+            model.addAttribute("msg", msg);
 
         }
 
@@ -173,7 +175,7 @@ public class NoticeController {
         } finally {
             log.info(this.getClass().getName() + ".noticeDelete End!");
 
-            model.addAttribute("msg",msg);
+            model.addAttribute("msg", msg);
         }
 
         return "/notice/MsgToList";
