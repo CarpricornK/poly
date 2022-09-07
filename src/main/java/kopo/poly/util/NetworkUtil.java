@@ -3,10 +3,7 @@ package kopo.poly.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.util.Map;
@@ -47,6 +44,34 @@ public class NetworkUtil {
     }
 
 
+    public static String post(String apiUrl, Map<String, String> requestHeaders, String text){
+        HttpURLConnection con = connect(apiUrl);
+        String postParams =  "query="  + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
+        try {
+            con.setRequestMethod("POST");
+            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+                con.setRequestProperty(header.getKey(), header.getValue());
+            }
+
+            con.setDoOutput(true);
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                wr.write(postParams.getBytes());
+                wr.flush();
+            }
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 응답
+                return readBody(con.getInputStream());
+            } else {  // 에러 응답
+                return readBody(con.getErrorStream());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("API 요청과 응답 실패", e);
+        } finally {
+            con.disconnect();
+        }
+    }
+
 
     public static String get(String apiUrl) {
         return get(apiUrl, null);
@@ -81,5 +106,11 @@ public class NetworkUtil {
         }
 
 
+
+
+
     }
+
+
+
 

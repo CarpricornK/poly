@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 파파고를 이용한 한글&영어 번역</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+
+        const btnSend = document.getElementById("btnSend");
+
+        btnSend.addEventListener("click", e => {
+            translate();
+        })
+
+    })
+
+    function translate() {
+
+        $.ajax({
+            url: "/papago/translate",
+            type: "get",
+            dataType: "JSON",
+            data: {
+                "text": $("#text").val()
+            },
+            success: function (json) {
+
+                let text = json.text;
+                let translatedText = json.translatedText;
+                let tarLangType = json.tarLangType;
+                let tarLang = "";
+
+                if (tarLangType === "ko") {
+                    tarLang = "한국어";
+                } else if (tarLangType === "es") {
+                    tarLang = "영어";
+                }
+
+
+                $("#contents").append("<div>");
+
+                $("#contents").append("<span>(원문) " + text +" </span>");
+                $("#contents").append("<span> => </span>");
+                $("#contents").append("<span> (" + tarLang + ") <b>" + translatedText + "</b> </span>");
+
+                $("#contents").append("</div>");
+
+                $("#contents").append("<br/><br/>");
+
+            }
+
+        });
+    }
+
+
+</script>
+
+
+
+<body>
+
+<h2>네이버 파파고를 이용한 한글&영어 번역</h2>
+<hr/>
+<br/><br/>
+<div id="contents"><b>파파고 번역 내용</b></div>
+<div>--------------------------------------</div>
+<br/><br/>
+<label> 번역할 문장 </label>
+<input type="text" id="text"/>
+<button id="btnSend">번역하기</button>
+
+</body>
+
+
+
+</html>
