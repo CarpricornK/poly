@@ -62,7 +62,7 @@ public class PapagoService implements IPapagoService {
     @Override
     public PapagoDTO translate(PapagoDTO pDTO) throws Exception {
 
-        log.info(this.getClass().getName() + ".detectLangs Start");
+        log.info(this.getClass().getName() + ".translate Start");
 
         PapagoDTO rDTO = this.detectLangs(pDTO);
 
@@ -75,10 +75,10 @@ public class PapagoService implements IPapagoService {
 
         if(langCode.equals("ko")) {
             source = "ko";
-            target = "es";
+            target = "en";
 
-        } else if (langCode.equals("es")) {
-            source = "es";
+        } else if (langCode.equals("en")) {
+            source = "en";
             target = "ko";
 
         } else {
@@ -107,6 +107,9 @@ public class PapagoService implements IPapagoService {
         String tarLangType = CmmUtil.nvl(resultMap.get("tarLangType"));
         String translatedText = CmmUtil.nvl(resultMap.get("translatedText"));
 
+        System.out.println("srcLangType : " + srcLangType);
+        System.out.println("tarLangType : " + tarLangType);
+        System.out.println("translatedText : " + translatedText);
 
         log.info("srcLangType : " + srcLangType);
         log.info("tarLangType : " + tarLangType);
@@ -122,7 +125,7 @@ public class PapagoService implements IPapagoService {
         messageMap = null;
         rMap = null;
 
-        log.info(this.getClass().getName() + ".detectLangs End");
+        log.info(this.getClass().getName() + ".translate End");
 
         return rDTO;
     }

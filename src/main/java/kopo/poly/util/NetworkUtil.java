@@ -44,10 +44,10 @@ public class NetworkUtil {
     }
 
 
-    public static String post(String apiUrl, Map<String, String> requestHeaders, String text){
+    public static String post(String apiUrl, @Nullable Map<String, String> requestHeaders, String postParams){
         HttpURLConnection con = connect(apiUrl);
-        String postParams =  "query="  + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
-        try {
+
+       try {
             con.setRequestMethod("POST");
             for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());

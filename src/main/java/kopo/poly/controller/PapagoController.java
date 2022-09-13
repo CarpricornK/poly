@@ -47,6 +47,7 @@ public class PapagoController {
             throws Exception {
         log.info(this.getClass().getName() + ".translate Start!");
 
+        System.out.println("translate 시작");
         String text = CmmUtil.nvl(request.getParameter("text"));
 
         log.info("text : " + text);
@@ -54,7 +55,7 @@ public class PapagoController {
         PapagoDTO pDTO = new PapagoDTO();
         pDTO.setText(text);
 
-        PapagoDTO rDTO = papagoService.detectLangs(pDTO);
+        PapagoDTO rDTO = papagoService.translate(pDTO);
 
         if(rDTO == null) {
             rDTO = new PapagoDTO();
